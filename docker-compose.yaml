@@ -1,7 +1,7 @@
 version: "3"
 services:
   frontend:
-    image: board:1.0.0
+    image: piotr04j/nest-angular:1.0.0
     ports:
       - "4200:4200"
     volumes:
@@ -9,7 +9,7 @@ services:
     working_dir: /share/src/app/frontend
     command: npm start -- --host 0.0.0.0
   backend:
-    image: board:1.0.0
+    image: piotr04j/nest-angular:1.0.0
     ports:
       - "3000:3000"
     volumes:
