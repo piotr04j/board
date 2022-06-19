@@ -14,7 +14,7 @@ import { User } from './user.entity';
         username: 'postgres',
         password: 'qwe123',
         entities: [User],
-        synchronize: true
+        synchronize: false
       })
   ],
   controllers: [AppController],
