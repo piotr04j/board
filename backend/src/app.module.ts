@@ -2,20 +2,32 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { User } from './user.entity';
+import { ConfigModule } from '@nestjs/config';
+import { DatabaseConfiguration } from './config/database.config';
 
 @Module({
   imports: [
-      TypeOrmModule.forRoot({
-        type: 'postgres',
-        database: 'board_db',
-        host: 'db',
-        port: 5432,
-        username: 'postgres',
-        password: 'qwe123',
-        entities: [User],
-        synchronize: false
-      })
+      ConfigModule.forRoot({
+        isGlobal: true,
+        envFilePath: `.env.${process.env.NODE_ENV}`
+      }),
+      TypeOrmModule.forRootAsync({
+          useClass: DatabaseConfiguration
+      }),
+      // TypeOrmModule.forRootAsync({
+      //     inject: [ConfigService],
+      //     useFactory: (config: ConfigService) => {
+      //         return {
+      //             type: 'postgres',
+      //             database: config.get<string>('DB_NAME'),
+      //             host: config.get<string>('DB_HOST'),
+      //             port: config.get<number>('DB_PORT'),
+      //             username: config.get<string>('DB_USER'),
+      //             password: config.get<string>('DB_PASSWORD'),
+      //             synchronize: false
+      //         }
+      //     }
+      // })
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,1 +1,3 @@
 .idea
+backend/.env.development
+backend/.env.test
